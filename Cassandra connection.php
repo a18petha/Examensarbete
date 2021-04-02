@@ -12,7 +12,7 @@
 
         $cluster = Cassandra::cluster()->build();
 
-        $keyspace = 'dota';
+        $keyspace = 'keyspace2';
 
         // creating session with cassandra scope by keyspace
         $session = $cluster->connect($keyspace);
@@ -22,13 +22,15 @@
             echo "Error - Unable to connect to database";
         }
         $statement = new Cassandra\SimpleStatement(       // also supports prepared and batch statements
-            'SELECT * FROM demo'
+            'SELECT * FROM dota1'
         );
         $future    = $session->executeAsync($statement);  // fully asynchronous and easy parallel execution
         $result    = $future->get();                      // wait for the result, with an optional timeout
+        echo '<pre>' , var_dump($result) , '</pre>';
         
         foreach ($result as $row) {                       // results and rows implement Iterator, Countable and ArrayAccess
-            printf("The keyspace %s has a table called %s\n", $row['duration'], $row['match_id']);
+
+            printf("The keyspace %s has a table called %s<br>", $row['duration'], $row['match_id']);
         }
 
 
