@@ -22,16 +22,18 @@
             echo "Error - Unable to connect to database";
         }
         $statement = new Cassandra\SimpleStatement(       // also supports prepared and batch statements
-            'SELECT * FROM dota1'
+            'SELECT match_id FROM dota1 WHERE duration <= 3500 LIMIT 200 ALLOW FILTERING;'
         );
         $future    = $session->executeAsync($statement);  // fully asynchronous and easy parallel execution
         $result    = $future->get();                      // wait for the result, with an optional timeout
         echo '<pre>' , var_dump($result) , '</pre>';
-        
+        $array = [];
         foreach ($result as $row) {                       // results and rows implement Iterator, Countable and ArrayAccess
-
-            printf("The keyspace %s has a table called %s<br>", $row['duration'], $row['match_id']);
+            array_push($array, $row['match_id']);
+            //printf("%s<br>", $row['match_id']);
         }
+        var_dump($array);
+
 
 
     //foreach($pdo->query( 'CALL GETAVGCOST();' ) as $row){
@@ -41,6 +43,14 @@
 
 
     ?>
+
+    <p id=test></p>;
+
+    <script>
+        let test = <?php echo json_encode($array); ?>;
+        console.log(test);
+        document.getElementById("test").innerHTML += test;
+    </script>
 </body>
 
 </html>
