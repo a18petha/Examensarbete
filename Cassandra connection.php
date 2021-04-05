@@ -22,7 +22,7 @@
             echo "Error - Unable to connect to database";
         }
         $statement = new Cassandra\SimpleStatement(       // also supports prepared and batch statements
-            'SELECT match_id FROM dota1 WHERE duration <= 3500 LIMIT 200 ALLOW FILTERING;'
+            'SELECT match_id, barracks_status_dire FROM dota1 WHERE barracks_status_dire >= 100 LIMIT 200 ALLOW FILTERING;'
         );
         $future    = $session->executeAsync($statement);  // fully asynchronous and easy parallel execution
         $result    = $future->get();                      // wait for the result, with an optional timeout
@@ -30,7 +30,7 @@
         $array = [];
         foreach ($result as $row) {                       // results and rows implement Iterator, Countable and ArrayAccess
             array_push($array, $row['match_id']);
-            //printf("%s<br>", $row['match_id']);
+            printf("%s<br>", $row['barracks_status_dire']);
         }
         var_dump($array);
 
