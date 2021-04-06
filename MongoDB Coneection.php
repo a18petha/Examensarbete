@@ -5,8 +5,16 @@
 </head>
 <body>
     <?php
+
+        function microtime_float()
+        {
+            list($usec, $sec) = explode(" ", microtime());
+            return ((float)$usec + (float)$sec);
+        }
+
         require 'vendor/autoload.php';
         $connection = new MongoDB\Client("mongodb://localhost:27017");
+        $time_start = microtime_float();
         $db = $connection->Dota2015->Sample;
         $mongodbArray = [];
         $match_idArray = [];
@@ -14,8 +22,8 @@
         $result = $db->find(
             [],
             [
-                'limit' => 198,
-                'skip' => 40491
+                'limit' => 5,
+                'skip' => 10000
             ]
             
         );
@@ -24,7 +32,11 @@
             array_push($mongodbArray, $document['_id']);
             array_push($match_idArray, $document['match_id']);
         }
+        $time_end = microtime_float();
 
+        $time = $time_end - $time_start;
+
+        var_dump($time);
     ?>
 
 <p id=test></p>
