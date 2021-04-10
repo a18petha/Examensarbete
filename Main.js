@@ -37,14 +37,21 @@ function shuffle(array, array2) {
   
 
 function shufflestart(){
-    shuffle(match_id,mongodbId);
+  shuffle(match_id,mongodbId);
 }
-// mätserie 1: titta responstid enbart
+// mätserie 1: titta responstid enbart -mongo
 function seriesOne(){
+  // Start Timer for query in Javascript
+  const start = Date.now();
+
+  // Do query in Php and save the result Object in localstorage
   $( "#seriesOneBtn" ).load( "SeriesOneMongoDB.php", function(){
+    //Get The result Object from query
     let MongoDB = JSON.parse(localStorage.getItem("MongoDBObject"));
     console.log(MongoDB);
 
+    // Get Time for transforming finding from query into Javascript Object
+    const millis = Date.now() - start;
   });
   
 }

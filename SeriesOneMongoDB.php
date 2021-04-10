@@ -8,12 +8,6 @@
 
 <body>
     <?php
-    //function for getting time in milisec
-    function microtime_float()
-    {
-        list($usec, $sec) = explode(" ", microtime());
-        return ((float)$usec + (float)$sec);
-    }
     include("array.php");
     
     require 'vendor/autoload.php';
@@ -28,7 +22,7 @@
 
     // Start performance loop
     for($i = 0; $i < 1; $i++){
-        $time_start = microtime_float();
+        $time_start = microtime(true);
         
         
         // Search in mongoDB
@@ -38,16 +32,11 @@
             ]
     
         );
-        // Gets some content from search, prob not needed
-        //foreach ($result as $document) {
-        //    array_push($mongodbArray, $document['_id']);
-        //    array_push($match_idArray, $document['match_id']);
-        //}
+        // Create PHP Object From result findings
         $ResultArray = iterator_to_array($result);
         // Get time from search
-        $time_end = microtime_float();
-        $time = $time_end - $time_start;
-        array_push($timeArray, $time);
+        echo 'Total execution time in miliseconds: ' . (microtime(true) - $time_start);
+
     }
     
 
