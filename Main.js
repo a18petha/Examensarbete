@@ -35,9 +35,16 @@ function shuffle(array, array2) {
 
   }
   
-  // Used like so
-function SeriesOne(){
-    console.log(match_id);
-    console.log(mongodbId);
+
+function shufflestart(){
     shuffle(match_id,mongodbId);
+}
+// mätserie 1: titta responstid enbart
+function seriesOne(){
+  $( "#seriesOneBtn" ).load( "SeriesOneMongoDB.php", function(){
+    let MongoDB = JSON.parse(localStorage.getItem("MongoDBObject"));
+    console.log(MongoDB);
+
+  });
+  
 }

@@ -27,7 +27,7 @@
     //$match_idArray = [];
 
     // Start performance loop
-    for($i = 0; $i < count($match_id); $i++){
+    for($i = 0; $i < 1; $i++){
         $time_start = microtime_float();
         
         
@@ -43,10 +43,11 @@
         //    array_push($mongodbArray, $document['_id']);
         //    array_push($match_idArray, $document['match_id']);
         //}
+        $ResultArray = iterator_to_array($result);
+        // Get time from search
         $time_end = microtime_float();
         $time = $time_end - $time_start;
         array_push($timeArray, $time);
-
     }
     
 
@@ -57,8 +58,10 @@
     <p id=test></p>
 
     <script>
-        let test = <?php echo json_encode($timeArray); ?>;
-        document.getElementById("test").innerHTML = test;
+        var resultArray = <?php echo json_encode($ResultArray); ?>;
+        var time = <?php echo json_encode($timeArray); ?>;
+        localStorage.setItem("MongoDBObject", JSON.stringify(resultArray));
+        document.getElementById("test").innerHTML = time;
     </script>
 </body>
 
