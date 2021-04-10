@@ -1,4 +1,4 @@
-db.test.updateMany(
+db.Dota2015.updateMany(
     {"radiant_win":true},
     {$unset: {
                 "teamfights.$[].players.$[].deaths_pos":1, "teamfights.$[].players.$[].ability_uses":1, "teamfights.$[].players.$[].item_uses":1, "teamfights.$[].players.$[].killed":1,
@@ -11,7 +11,7 @@ db.test.updateMany(
   )
 
 
-db.test.updateMany(
+db.Dota2015.updateMany(
     {"radiant_win":false},
     {$unset: {
                 "teamfights.$[].players.$[].deaths_pos":1, "teamfights.$[].players.$[].ability_uses":1, "teamfights.$[].players.$[].item_uses":1, "teamfights.$[].players.$[].killed":1,
