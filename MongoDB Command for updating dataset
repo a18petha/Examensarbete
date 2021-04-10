@@ -1,0 +1,11 @@
+db.test.updateMany(
+    {"radiant_win":true},
+    {$unset: {
+                "teamfights.$[].players.$[].deaths_pos":1, "teamfights.$[].players.$[].ability_uses":1, "teamfights.$[].players.$[].item_uses":1, "teamfights.$[].players.$[].killed":1,
+                "players.$[].obs_log":1, "players.$[].sen_log":1, "players.$[].buyback_log":1, "players.$[].obs":1, "players.$[].sen":1, "players.$[].actions":1, "players.$[].pings":1,
+                "players.$[].purchase":1, "players.$[].killed":1, "players.$[].item_uses":1, "players.$[].ability_uses":1, "players.$[].hero_hits":1, "players.$[].damage":1,
+                "players.$[].damage_taken":1, "players.$[].damage_inflictor":1, "players.$[].runes":1, "players.$[].killed_by":1, "players.$[].modifier_applied":1, "players.$[].kill_streaks":1,
+                "players.$[].multi_kills":1, "players.$[].healing":1, "players.$[].xp_reasons":1, "players.$[].gold_reasons":1, "players.$[].lane_pos":1, "players.$[].additional_units":1
+             }
+    }
+  )
