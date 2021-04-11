@@ -70,6 +70,7 @@ function seriesOne() {
 
 }
 
+
 function seriesFour() {
   // Start Timer for query in Javascript
 
@@ -107,4 +108,46 @@ function seriesFour() {
       document.getElementById("CassandraFullResult").innerHTML += EndCassandra + ",";
     }));
 
+}
+
+function seriesThreeOpen(){
+  
+  for(let i = 0; i< 5; i++){
+    window.open("http://localhost:8080/test/SeriesThreeMainPage.html")
+  }
+}
+function seriesThreeStart(){
+  for(let i = 0; i < 5; i++){
+    setTimeout(function(){ seriesThree() }, 3000);
+  }
+}
+
+function seriesThree() {
+  // Start Timer for query in Javascript
+
+    index = (Math.floor(Math.random() * 1000))
+
+    // Doing MongoDB calculations
+    const startMongo = Date.now();
+    $("#seriesOneBtn").append($('<div>').load("SeriesOneMongoDB.php", { var1: index }, function () {
+      //Get The result Object from query
+      let MongoDB = JSON.parse(localStorage.getItem("MongoDBObject"));
+      console.log(MongoDB);
+      // Get Time for transforming finding from query into Javascript Object
+      const EndMongo = Date.now() - startMongo;
+      document.getElementById("MongoDBFullResult").innerHTML += EndMongo + ",";
+    }));
+
+
+    //Doing Cassandra calculations
+    const startCassandra = Date.now();
+    $("#seriesOneBtn").append($('<div>').load("SeriesOneCassandraDB.php", { var1: index }, function () {
+      //Get The result Object from query
+      let cassandra = JSON.parse(localStorage.getItem("CassandraDBObject"));
+      console.log(cassandra);
+      // Get Time for transforming finding from query into Javascript Object
+      const EndCassandra = Date.now() - startCassandra;
+      document.getElementById("CassandraFullResult").innerHTML += EndCassandra + ",";
+    }));
+    seriesThree();
 }
