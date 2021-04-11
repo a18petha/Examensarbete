@@ -1,0 +1,166 @@
+** Cassandra Create Commands **
+
+
+// Create Table Dota
+
+CREATE TABLE dota (
+    match_id int,
+    barracks_status_dire int,
+    barracks_status_radiant int,
+    chat list<frozen <chat>>,
+    cluster int,
+    duration int,
+    engine int,
+    first_blood_time int,
+    game_mode int,
+    human_players int,
+    leagueid int,
+    lobby_type int,
+    match_seq_num int,
+    negative_votes int,
+    parse_status int,
+    picks_bans list<frozen <picks_bans>>,
+    players list<frozen <playertest2>>,
+    positive_votes int,
+    radiant_gold_adv list<int>,
+    radiant_win boolean,
+    radiant_xp_adv list<int>,
+    start_time int,
+    teamfights list<frozen <teamfights>>,
+    tower_status_dire int,
+    tower_status_radiant int,
+    version int,
+    PRIMARY KEY (match_id)
+) WITH caching={'keys':'ALL', 'rows_per_partition':'NONE'}
+ AND compaction={'class':'org.apache.cassandra.db.compaction.SizeTieredCompactionStrategy', 'max_threshold':'32', 'min_threshold':'4'}
+ AND compression={'chunk_length_in_kb':'64', 'class':'org.apache.cassandra.io.compress.LZ4Compressor'}
+ AND dclocal_read_repair_chance=0.1
+ AND speculative_retry='99PERCENTILE';
+
+// Table Dota 3
+
+CREATE TABLE dota (
+    match_id int,
+    barracks_status_dire int,
+    barracks_status_radiant int,
+    chat list<frozen <chat>>,
+    cluster int,
+    duration int,
+    engine int,
+    first_blood_time int,
+    game_mode int,
+    human_players int,
+    leagueid int,
+    lobby_type int,
+    match_seq_num int,
+    negative_votes int,
+    parse_status int,
+    picks_bans list<frozen <picks_bans>>,
+    players list<frozen <playertest2>>,
+    positive_votes int,
+    radiant_gold_adv list<int>,
+    radiant_win boolean,
+    radiant_xp_adv list<int>,
+    start_time int,
+    teamfights list<frozen <teamfights>>,
+    tower_status_dire int,
+    tower_status_radiant int,
+    version int,
+    PRIMARY KEY ((duration, lobby_type),radiant_win)
+) WITH caching={'keys':'ALL', 'rows_per_partition':'NONE'}
+ AND compaction={'class':'org.apache.cassandra.db.compaction.SizeTieredCompactionStrategy', 'max_threshold':'32', 'min_threshold':'4'}
+ AND compression={'chunk_length_in_kb':'64', 'class':'org.apache.cassandra.io.compress.LZ4Compressor'}
+ AND dclocal_read_repair_chance=0.1
+ AND speculative_retry='99PERCENTILE';
+
+** CREATE TYPES FOR DOTA TABLE **
+
+CREATE TYPE chat (
+     time int,
+     "type" text,
+     unit text,
+     "key" text,
+     slot int
+);
+
+CREATE TYPE picks_bans (
+     is_pick boolean,
+     hero_id int,
+     team int,
+     "order" int
+);
+
+CREATE TYPE playertest2 (
+     account_id bigint,
+     player_slot int,
+     hero_id int,
+     item_0 int,
+     item_1 int,
+     item_2 int,
+     item_3 int,
+     item_4 int,
+     item_5 int,
+     kills int,
+     deaths int,
+     assists int,
+     leaver_status int,
+     gold int,
+     last_hits int,
+     denies int,
+     gold_per_min int,
+     xp_per_min int,
+     gold_spent int,
+     hero_damage int,
+     tower_damage int,
+     hero_healing int,
+     "level" int,
+     ability_upgrades list<frozen <ability_upgrades>>,
+     stuns double,
+     max_hero_hit max_hero_hit,
+     times list<int>,
+     gold_t list<int>,
+     lh_t list<int>,
+     xp_t list<int>,
+     purchase_log list<frozen <purchase_log>>,
+     kills_log list<frozen <kills_log>>
+);
+	** SUB TYPES TO PLAYERTEST2 OBJECT **
+
+	CREATE TYPE ability_upgrades (
+     		ability int,
+     		time int,
+     		"level" int
+	);
+	CREATE TYPE max_hero_hit (
+		"type" text,
+		max boolean,
+		time int,
+		unit text,
+		"key" text,
+		value int,
+		slot int
+	);
+	CREATE TYPE kills_log (
+		time int,
+		"key" text
+	);
+
+
+CREATE TYPE teamfights (
+     start int,
+     end int,
+     last_death int,
+     deaths int,
+     players list<frozen <players>>
+);
+	CREATE TYPE players (
+     		deaths int,
+     		buybacks int,
+     		damage int,
+     		gold_delta int,
+     		xp_delta int,
+     		xp_start int,
+     		xp_end int
+	);	
+
+	

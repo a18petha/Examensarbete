@@ -1,0 +1,22 @@
+** Cassandra Commands
+
+//list all tables
+describe tables;
+
+// Copy into database
+COPY demo (match_id, duration, match_seq_num) FROM 'D:\skolprojekt\yasp-dump-2015-12-18.json' WITH DELIMITER=',' AND HEADER=TRUE;
+
+// delete all content in table
+TRUNCATE keyspace_name.table_name;
+
+// adding column to table
+ALTER TABLE import1
+ADD picks_bans list<FROZEN<picks_bans>>; 
+
+// adding array of ints
+cqlsh:dota> ALTER TABLE testimport4
+        ... ADD radiant_gold_adv FROZEN<LIST<int>>;
+
+// DSBULK load 1.8 har problem med --scema.allowextrafields
+
+dsbulk load -k keyspace2 -t dota -c json -url D:/skolprojekt/yasp-dump-2015-12-18.json -maxRecords 20 --connector.json.mode SINGLE_DOCUMENT --schema.allowExtraFields true --schema.allowMissingFields true
