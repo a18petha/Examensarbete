@@ -1,21 +1,37 @@
 <!DOCTYPE html>
 <html>
-    <meta charset="utf-8">
-    <head>
-        <title>MainPage</title>
-        <link rel="stylesheet" href="Main.css">
-    </head>
-    <body>
-        <div class="btn1" onclick="shufflestart()">Shuffle Primary Key Array: </div>
-        <br>
-        <div class="btn1" id="seriesOneBtn" onclick="seriesOne()">Start Series One</div>
-        
+<meta charset="utf-8">
+
+<head>
+    <title>MainPage</title>
+    <link rel="stylesheet" href="Main.css">
+</head>
+
+<body>
+    <div class="OptionMeny">
+        <div class="btn1" id="seriesOneBtn" onclick="seriesOne()"><p>Start Series One</p></Start></div>
+        <div class="btn1" id="seriesTwoBtn" onclick="seriesOne()">Start Series Two</div>
+        <div class="btn1" id="seriesThreeBtn" onclick="seriesOne()">Start Series Three</div>
+        <div class="btn1" id="seriesFourBtn" onclick="seriesOne()">Start Series Four</div>
+
         <p id="test"></p>
         <p id="test2"></p>
-    </body>
-    <foooter>
-        <script src="array.js"></script>
-        <script src="Main.js"></script>
-        <script src="https://code.jquery.com/jquery-3.5.0.js"></script>
-    </foooter>
+    </div>
+    <div class="content">
+        <h2 style="margin-top:0px;">MongoDB Results</h2>
+        <p class="result" id="MongoDBResult">MongoDB Query Result: </p>
+        <p class="result" id="MongoDBFullResult">MongoDB Javascript Ready Result: </p>
+    </div>
+    <div class="content">
+        <h2 style="margin-top:0px;">Cassandra Results</h2>
+        <p class="result" id="MongoDBResult">Cassandra Query Result: </p>
+        <p class="result" id="MongoDBFullResult">Cassandra Javascript Ready Result: </p>
+    </div>
+</body>
+<foooter>
+    <script src="array.js"></script>
+    <script src="Main.js"></script>
+    <script src="https://code.jquery.com/jquery-3.5.0.js"></script>
+</foooter>
+
 </html>

@@ -1,57 +1,59 @@
 function shuffle(array, array2) {
-    let currentIndex = array.length, temporaryValue, randomIndex;
-    let currentIndex2 = array2.length, temporaryValue2, randomIndex2;
-    // While there remain elements to shuffle...
-    while (0 !== currentIndex) {
-  
-      // Pick a remaining element...
-      randomIndex = Math.floor(Math.random() * currentIndex);
-      currentIndex -= 1;
-      // And swap it with the current element.
+  let currentIndex = array.length, temporaryValue, randomIndex;
+  let currentIndex2 = array2.length, temporaryValue2, randomIndex2;
+  // While there remain elements to shuffle...
+  while (0 !== currentIndex) {
 
-      temporaryValue = array[currentIndex];
-      temporaryValue2 = array2[currentIndex]
+    // Pick a remaining element...
+    randomIndex = Math.floor(Math.random() * currentIndex);
+    currentIndex -= 1;
+    // And swap it with the current element.
 
-      array[currentIndex] = array[randomIndex];
-      array2[currentIndex] = array2[randomIndex];
+    temporaryValue = array[currentIndex];
+    temporaryValue2 = array2[currentIndex]
+
+    array[currentIndex] = array[randomIndex];
+    array2[currentIndex] = array2[randomIndex];
 
 
-      array[randomIndex] = temporaryValue;
-      array2[randomIndex] = String(temporaryValue2);
-    }
+    array[randomIndex] = temporaryValue;
+    array2[randomIndex] = String(temporaryValue2);
+  }
 
-    for(let i = 0; i< array2.length; i++){
-        let value = array2[i];
+  for (let i = 0; i < array2.length; i++) {
+    let value = array2[i];
 
-        let fix = array2[i];
-        fix.replace(value, "");
-        fix = "\""+value+"\"";
-        array2[i] = fix;
-    }
+    let fix = array2[i];
+    fix.replace(value, "");
+    fix = "\"" + value + "\"";
+    array2[i] = fix;
+  }
 
   document.getElementById("test").innerHTML = array;
   document.getElementById("test2").innerHTML = array2;
-  
 
-  }
-  
 
-function shufflestart(){
-  shuffle(match_id,mongodbId);
+}
+
+
+function shufflestart() {
+  shuffle(match_id, mongodbId);
 }
 // mätserie 1: titta responstid enbart -mongo
-function seriesOne(){
+function seriesOne() {
   // Start Timer for query in Javascript
-  const start = Date.now();
 
-  // Do query in Php and save the result Object in localstorage
-  $( "#seriesOneBtn" ).load( "SeriesOneMongoDB.php", function(){
-    //Get The result Object from query
-    let MongoDB = JSON.parse(localStorage.getItem("MongoDBObject"));
-    console.log(MongoDB);
+    index = (Math.floor(Math.random() * 1000))
 
-    // Get Time for transforming finding from query into Javascript Object
-    const millis = Date.now() - start;
-  });
-  
+    // Doing MongoDB calculations
+    const startMongo = Date.now();
+    $("#seriesOneBtn").append($('<div>').load("SeriesOneMongoDB.php", { var1: index }, function () {
+      //Get The result Object from query
+      let MongoDB = JSON.parse(localStorage.getItem("MongoDBObject"));
+      // Get Time for transforming finding from query into Javascript Object
+      const EndMongo = Date.now() - startMongo;
+      document.getElementById("MongoDBFullResult").innerHTML += EndMongo + ",";
+    }));
+
+
 }
