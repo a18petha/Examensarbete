@@ -50,9 +50,22 @@ function seriesOne() {
     $("#seriesOneBtn").append($('<div>').load("SeriesOneMongoDB.php", { var1: index }, function () {
       //Get The result Object from query
       let MongoDB = JSON.parse(localStorage.getItem("MongoDBObject"));
+      console.log(MongoDB);
       // Get Time for transforming finding from query into Javascript Object
       const EndMongo = Date.now() - startMongo;
       document.getElementById("MongoDBFullResult").innerHTML += EndMongo + ",";
+    }));
+
+
+    //Doing Cassandra calculations
+    const startCassandra = Date.now();
+    $("#seriesOneBtn").append($('<div>').load("SeriesOneCassandraDB.php", { var1: index }, function () {
+      //Get The result Object from query
+      let cassandra = JSON.parse(localStorage.getItem("CassandraDBObject"));
+      console.log(cassandra);
+      // Get Time for transforming finding from query into Javascript Object
+      const EndCassandra = Date.now() - startCassandra;
+      document.getElementById("CassandraFullResult").innerHTML += EndCassandra + ",";
     }));
 
 

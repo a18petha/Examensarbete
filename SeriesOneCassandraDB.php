@@ -8,11 +8,7 @@
 <body>
     <?php
 
-    function microtime_float()
-    {
-        list($usec, $sec) = explode(" ", microtime());
-        return ((float)$usec + (float)$sec);
-    }
+
     include("array.php");
     $cluster = Cassandra::cluster()->build();
     $keyspace = 'keyspace2';
@@ -23,38 +19,37 @@
     if (!$session) {
         echo "Error - Unable to connect to database";
     }
+    $placeholder = $_POST['var1'];
 
+    
 
-    $timeArray = [];
-
-    for ($i = 0; $i < count($match_id); $i++){
-        $time_start = microtime_float();
+    
+        $time_start = microtime(true);
 
         // Cassandra Query
         $statement = new Cassandra\SimpleStatement(       
-            "SELECT * FROM dota1 WHERE match_id = $match_id[$i] "
+            "SELECT * FROM dota1 WHERE match_id = $match_id[$placeholder] "
         );
         // Waiting for query to finish
         $future    = $session->executeAsync($statement);
         $result    = $future->get();
         // Getting Time Result
-        $time_end = microtime_float();
-        $time = $time_end - $time_start;
-        array_push($timeArray, $time);
-    }
+        $ResultArray = iterator_to_array($result);
+        $finalTime = (microtime(true) - $time_start);
+        
+    
 
-    foreach ($result as $row) {                       // results and rows implement Iterator, Countable and ArrayAccess
-        printf("%s<br>", $row['barracks_status_dire']);
-    }
+    //foreach ($result as $row) {                       // results and rows implement Iterator, Countable and ArrayAccess
+    //    printf("%s<br>", $row['barracks_status_dire']);
+    //}
 
     ?>
 
-    <p id=test></p>;
-
     <script>
-        let test = <?php echo json_encode($timeArray); ?>;
-        console.log(test);
-        document.getElementById("test").innerHTML += test;
+        var resultArray = <?php echo json_encode($ResultArray); ?>;
+        var time = <?php echo json_encode($finalTime); ?>;
+        localStorage.setItem("CassandraDBObject", JSON.stringify(resultArray));
+        document.getElementById("CassandraResult").innerHTML += time+ ",";
     </script>
 </body>
 
