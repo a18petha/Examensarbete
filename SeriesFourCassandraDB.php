@@ -22,18 +22,17 @@
     $duration = (int)$_POST['var1'];
     $lobby_type = (int)$_POST['var2'];
     $radiant_win = $_POST['var3'] === 'true' ? true : false;  
-
     $time_start = microtime(true);
 
     // Cassandra Query
-    if($radiant_win == true){
+    if($radiant_win = true){
         $statement = new Cassandra\SimpleStatement(
-            "SELECT * FROM dota3 WHERE duration = $duration AND lobby_type = $lobby_type AND radiant_win = true "
+            "SELECT * FROM dota3 WHERE duration = $duration AND lobby_type = $lobby_type AND radiant_win = true ALLOW FILTERING"
         );
     }
     else{
         $statement = new Cassandra\SimpleStatement(
-            "SELECT * FROM dota3 WHERE duration = $duration AND lobby_type = $lobby_type AND radiant_win = false "
+            "SELECT * FROM dota3 WHERE duration = $duration AND lobby_type = $lobby_type AND radiant_win = false ALLOW FILTERING"
         );
     }
     // Waiting for query to finish

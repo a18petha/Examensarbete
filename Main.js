@@ -42,7 +42,7 @@ function shufflestart() {
 // mätserie 1: titta responstid enbart -mongo
 function seriesOne() {
   // Start Timer for query in Javascript
-
+  
     index = (Math.floor(Math.random() * 1000))
 
     // Doing MongoDB calculations
@@ -70,13 +70,52 @@ function seriesOne() {
 
 }
 
+function seriesTwoStart(){
+  
+
+  let p1 = new Promise((resolve, reject) => {
+    seriesFour()
+  })
+  let p2 = new Promise((resolve, reject) => {
+    seriesFour()
+  })
+  let p3 = new Promise((resolve, reject) => {
+    seriesFour()
+  })
+  let p4 = new Promise((resolve, reject) => {
+    seriesFour()
+  })
+  let p5 = new Promise((resolve, reject) => {
+    seriesFour()
+  })
+}
+
+function seriesThreeStart(){
+  
+
+  let p1 = new Promise((resolve, reject) => {
+    seriesOne()
+  })
+  let p2 = new Promise((resolve, reject) => {
+    seriesOne()
+  })
+  let p3 = new Promise((resolve, reject) => {
+    seriesOne()
+  })
+  let p4 = new Promise((resolve, reject) => {
+    seriesOne()
+  })
+  let p5 = new Promise((resolve, reject) => {
+    seriesOne()
+  })
+}
 
 function seriesFour() {
   // Start Timer for query in Javascript
 
-    duration = (Math.floor(Math.random() * 4000))
-    lobby_type = (Math.floor(Math.random() * 10))
-    randomnum = (Math.floor(Math.random() * 3))
+    duration = (Math.floor(Math.random() * 4000));
+    lobby_type = 7;
+    randomnum = (Math.floor(Math.random() * 3));
 
     if(randomnum == 1){
       Radiant_win = "true";
@@ -110,21 +149,7 @@ function seriesFour() {
 
 }
 
-function seriesThreeStart(){
-  
-  let p = new Promise((resolve, reject) => {
-    setTimeout(() => resolve("First one done"), 5000);
-  })
-  p.then((message) =>{
-    console.log("Promise is: " + message);
-  })
-  let pp = new Promise((resolve, reject) => {
-    setTimeout(() => resolve("Second one done"), 3000);
-  })
-  pp.then((message) =>{
-    console.log("Promise is: " + message);
-  })
-}
+
 
 function seriesThree() {
   // Start Timer for query in Javascript

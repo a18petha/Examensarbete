@@ -22,7 +22,7 @@
 
 
     // Search in mongoDB
-    $result = $db->findOne(array('duration' => $duration, 'lobby_type' => ['$gte' => $lobby_type], 'radiant_win' => false));
+    $result = $db->findOne(array('duration' => $duration, 'lobby_type' => $lobby_type, 'radiant_win' => $radiant_win));
 
     // Create PHP Object From result findings
     if(isset($result)){
