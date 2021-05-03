@@ -37,7 +37,7 @@ CREATE TABLE dota (
  AND dclocal_read_repair_chance=0.1
  AND speculative_retry='99PERCENTILE';
 
-// Table Dota 3
+// Table Dota3 Used for series 2 and 3
 
 CREATE TABLE dota (
     match_id int,
