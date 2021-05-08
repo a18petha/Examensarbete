@@ -19,39 +19,28 @@
     if (!$session) {
         echo "Error - Unable to connect to database";
     }
-    $duration = (int)$_POST['var1'];
-    $lobby_type = (int)$_POST['var2'];
-    $radiant_win = $_POST['var3'] === 'true' ? true : false;  
     $time_start = microtime(true);
-
+    $placeholder = $_POST['var1'];
+    
     // Cassandra Query
-    if($radiant_win = true){
-        $statement = new Cassandra\SimpleStatement(
-            "SELECT * FROM dota3 WHERE duration = $duration AND lobby_type = $lobby_type AND radiant_win = true ALLOW FILTERING"
-        );
-    }
-    else{
-        $statement = new Cassandra\SimpleStatement(
-            "SELECT * FROM dota3 WHERE duration = $duration AND lobby_type = $lobby_type AND radiant_win = false ALLOW FILTERING"
-        );
-    }
+
+    $statement = new Cassandra\SimpleStatement(
+        "SELECT chat FROM dota4 WHERE match_id = $match_id[$placeholder] "
+    );
+
     // Waiting for query to finish
     $future    = $session->executeAsync($statement);
     $result    = $future->get();
+
     // Getting Time Result
-    if(isset($result)){
+    if (isset($result)) {
         $ResultArray = iterator_to_array($result);
-    }
-    else {
+    } else {
         $ResultArray = "Failed Query There was No Match for this query";
     }
+    
     $finalTime = (microtime(true) - $time_start);
 
-
-
-    //foreach ($result as $row) {                       // results and rows implement Iterator, Countable and ArrayAccess
-    //    printf("%s<br>", $row['barracks_status_dire']);
-    //}
 
     ?>
 

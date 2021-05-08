@@ -12,17 +12,23 @@
 
     require 'vendor/autoload.php';
     $connection = new MongoDB\Client("mongodb://localhost:27017");
-    $db = $connection->Dota2015->Sample;
+    $db = $connection->Dota2015->seriesfour;
 
-    $duration = (int)$_POST['var1'];
-    $lobby_type = (int)$_POST['var2'];
-    $radiant_win = $_POST['var3'] === 'true'? true: false;
+    $index = (int)$_POST['var1'];
     // Start performance loop
     $time_start = microtime(true);
 
 
     // Search in mongoDB
-    $result = $db->findOne(array('duration' => $duration, 'lobby_type' => $lobby_type, 'radiant_win' => $radiant_win));
+    $result = $db->find(
+
+        array(
+            'match_id' => $match_id[$_POST['var1']]
+        ),
+        array(
+            'projection' => array('chat' => array( '$slice' => 1))
+        )
+    );
 
     // Create PHP Object From result findings
     if(isset($result)){
